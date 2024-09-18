@@ -15,17 +15,35 @@ export const SignUp = () => {
 
 					<div className="signUp-form">
 						<div className="control-group">
-							<input type="text" className="login-field" value="" placeholder="email" id="login-name"/>
+							<input 
+                                type="text" 
+                                className="login-field" 
+                                value="" 
+                                placeholder="email" 
+                                id="signUp-email"
+                               // value={email}
+                               // onChange={handleChange}
+                            />
 								
 						</div>
 
 						<div className="control-group">
-							<input type="password" className="login-field" value="" placeholder="password" id="login-pass"/>
+							<input 
+                                type="password" 
+                                className="signUp-field" 
+                                value="" 
+                                placeholder="password" 
+                                id="SignUp-pass"
+                                //value={password}
+                                //onChange={handleChange}
+
+                            />
 								
 						</div>
 
-						<a className="btn btn-primary btn-large btn-block" href="#">login</a>
-						<a className="signUp-link" href="#">Lost your password?</a>
+						<button className="btn btn-primary btn-large btn-block" href="#">login</button>
+						<button className="signUp-link" href="#">Lost your password?</button> 
+                        
 					</div>
 				</div>
 			</div>

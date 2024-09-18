@@ -5,11 +5,33 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+
 
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
+
+api.config["JWT_SECRET_KEY"] = "codigo1518179"
+jwt = JWTManager(api)
+
+#se crea la ruta para autentificar los usuarios y devolver el token
+@api.route('/token', methodos=['POST'])
+def create_token():
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @api.route('/hello', methods=['POST', 'GET'])
