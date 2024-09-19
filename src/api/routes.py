@@ -48,7 +48,7 @@ def protected():
     
     return jsonify({'id':user.id, 'email':user.email})
 
-@api.route('/singup', methods=['POST'])
+@api.route('/signup', methods=['POST'])
 def signup():
     #primero obtengo los datos json de la solicitud 
     data = request.get_json()
@@ -57,11 +57,16 @@ def signup():
     password = data.get('password')
     is_active = data.get('is_active')
 
-    user = User(email=email, password=password, is_active= is_active)
-    #añadimos esos datos a nuestro base 
-    db.session.add(user)
-    db.session.commit() 
-    return jsonify({'msg':'Usuario registrado exitosamente'}),200 
+    user = User.query.filter_by(email=email, is_active = is_active).first()
+
+    if not user:
+        user = User(email=email, password=password, is_active= is_active)
+        #añadimos esos datos a nuestro base 
+        db.session.add(user)
+        db.session.commit() 
+        return jsonify({'msg':'Usuario registrado exitosamente'}),200 
+    elif user:
+        return jsonify({'msg':'Usuario ya existe'}),400
 
 
 

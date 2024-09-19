@@ -42,16 +42,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}),
 						headers: {
 							"Content-Type": "application/json"
+
 						}
-					});
+					})
+
 					const data = await response.json();
 					// Verifica si la respuesta fue exitosa
 					if (response.status !== 200) {
+						alert(data.msg)
 						console.error('Error en el registro:', data); // Muestra el error en la consola
 						return false; // Retorna false si la respuesta no es exitosa
 					}
-					console.log('Registro exitoso:', data); // Puedes mostrar más información del registro
-					return true; // Retorna true si el registro fue exitoso
+					else {
+						console.log('Registro exitoso:', data); // Puedes mostrar más información del registro
+						return true; // Retorna true si el registro fue exitoso
+					}
 				} catch (error) {
 					console.error('Error en la solicitud de registro:', error); // Manejo de errores de red
 					return false; // Retorna false en caso de error

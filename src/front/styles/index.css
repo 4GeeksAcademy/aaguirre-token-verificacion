@@ -2,3 +2,36 @@
     General Styles used on every website (Don't Repeat Yourself)
 */
 
+.navbar {
+    background-color: rgba(146, 198, 244, 0.2); /* Color blanco con 50% de transparencia */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    z-index: 1000;
+}
+
+.ml-auto {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.contenedor_private{
+    background-image: url("https://img.freepik.com/vector-premium/ilustracion-vector-montanas-paisaje-forestal_6735-554.jpg?w=1060");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100vh;
+      
+  
+}
+
+.texto-private{
+    font-size: 70px;
+}
