@@ -1,12 +1,40 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 import '../../styles/signUp.css'
 
 export const SignUp = () => {
+	const { store, actions } = useContext(Context);
+
+	const [email, setEmail]= useState("")
+	const [password, setPassword] = useState("")
+	
+
+	const navigate = useNavigate()
+	const handlechange = (e) => {
+		setData({ ...data, [e.target.name]: e.target.value })
+
+	}
+
+	
+	const handleSubmit = async (email, password) => {
+		
+		const signUp = await actions.signUp(email, password)
+		if (signUp) {
+			alert('usuario registrado con exito')
+			navigate('/login')
+		}
+		else {
+			alert('Introduce unos datos correctos para poder registrarte')
+
+		}
+
+	}
+
+
     return (
-        <div classNameName="container">
+        <div className="container">
 			<div className="signUp">
 				<div className="signUp_screen">
 					<div className="app-title">
@@ -18,11 +46,10 @@ export const SignUp = () => {
 							<input 
                                 type="text" 
                                 className="login-field" 
-                                value="" 
                                 placeholder="email" 
                                 id="signUp-email"
-                               // value={email}
-                               // onChange={handleChange}
+                                value={email}
+                                onChange={(e)=>setEmail(e.target.value)}
                             />
 								
 						</div>
@@ -31,24 +58,23 @@ export const SignUp = () => {
 							<input 
                                 type="password" 
                                 className="signUp-field" 
-                                value="" 
                                 placeholder="password" 
                                 id="SignUp-pass"
-                                //value={password}
-                                //onChange={handleChange}
+                                value={password}
+                                onChange={(e)=>setPassword(e.target.value)}
 
                             />
 								
 						</div>
 
-						<button className="btn btn-primary btn-large btn-block" href="#">login</button>
-						<button className="signUp-link" href="#">Lost your password?</button> 
+						<button className="btn btn-primary btn-large btn-block" href="# " onClick={()=>handleSubmit(email, password)}>SignUp!</button>
+						
                         
 					</div>
 				</div>
 			</div>
 			<Link to="/">
-				<button classNameName="btn btn-primary">Back home</button>
+				<button className="btn btn-primary">Back home</button>
 			</Link>
 		</div>
     )

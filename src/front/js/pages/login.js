@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 import '../../styles/login.css'
@@ -7,25 +7,22 @@ import '../../styles/login.css'
 export const Login = () => {
 	const { store, actions } = useContext(Context);
 
+	const navigate = useNavigate()
 	const [data, setData] = useState({})
 	const handlechange = (e) => {
 		setData({ ...data, [e.target.name]: e.target.value })
 	}
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
-		console.log('URL',process.env.BACKEND_URL + "/api/login")
-		fetch(process.env.BACKEND_URL + "/api/login", {
-			method: "POST",
-			body: JSON.stringify(data),
-			headers: {
-				"Content-Type": "application/json"
-			}
+		const userLogin = await actions.login(data)
+		if (userLogin) {
+			navigate('/private')
+		}
+		else {
+			alert('Usuario o contraseña incorrectos')
 
-		})
-			.then(response => response.json())
-			.then(data => {
-				localStorage.setItem("token",data.token)
-			})
+		}
+
 	}
 
 	return (
@@ -62,7 +59,7 @@ export const Login = () => {
 						</div>
 
 						<button className="btn btn-primary btn-large btn-block" onClick={handleSubmit} >login</button>
-						<a className="login-link" href="#">Lost your password?</a>
+						
 					</div>
 				</div>
 			</div>

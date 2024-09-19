@@ -6,6 +6,7 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 api = Blueprint('api', __name__)
@@ -35,6 +36,32 @@ def login():
 
 #login , registro y verficacion token
 
+#una vez se inicia sesión, se va realizando la verificación del token. 
+@api.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    if user is None:
+        return jsonify({'msg':'verificación incorrecta'}), 401
+    
+    return jsonify({'id':user.id, 'email':user.email})
+
+@api.route('/singup', methods=['POST'])
+def signup():
+    #primero obtengo los datos json de la solicitud 
+    data = request.get_json()
+    #extraígo el email y contraseña
+    email = data.get('email')
+    password = data.get('password')
+    is_active = data.get('is_active')
+
+    user = User(email=email, password=password, is_active= is_active)
+    #añadimos esos datos a nuestro base 
+    db.session.add(user)
+    db.session.commit() 
+    return jsonify({'msg':'Usuario registrado exitosamente'}),200 
 
 
 
