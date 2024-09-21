@@ -19,9 +19,10 @@ export const Private = () => {
             if (!token) {
                 navigate('/login')
             } else {
-                const auth = await actions.autentificacion()
+                const auth = await actions.autentificacion('token')
                 if (!auth) {
                     navigate('/login')
+                    
                 }
             }
 

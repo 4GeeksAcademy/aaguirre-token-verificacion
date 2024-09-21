@@ -70,7 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = localStorage.getItem('token')
 
 				try {
-					const response = await fetch('/protected', {
+					const response = await fetch(process.env.BACKEND_URL +'/api/protected', {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
