@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -61,6 +63,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error('Error en la solicitud de registro:', error); // Manejo de errores de red
 					return false; // Retorna false en caso de error
 				}
+			},
+
+			autentificacion: async () => {
+
+				const token = localStorage.getItem('token')
+
+				try {
+					const response = await fetch('/protected', {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							'Authorization': 'Bearer ' + token
+						}
+				
+					});
+					console.log(response)
+					if (!response.ok) {
+						return false
+					} else {
+						const data = await response.json()
+						console.log(data)
+						return true
+						
+						
+					}
+				} catch (error) {
+					console.error('error durante la autentificación', error);
+					return false
+				}
+
+
 			}
 
 
